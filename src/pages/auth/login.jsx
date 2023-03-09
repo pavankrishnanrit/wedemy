@@ -7,28 +7,36 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { auth } from "../../firebase/firebase-config";
+import { getUser } from "../../axios/user.axios";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const login = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        console.log(res);
-        dispatch({
-          type: "CREATE_USER",
-          payload: res.data,
-        });
-        navigate("/homepg");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const login = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email,).then(async (res) => {
+        console.log(res.user.email);
+        console.log(res);
+        await getUser(res.user.email).then((res)=> {
+          console.log(res);
+          dispatch({
+            type: "CREATE_USER",
+            payload: res.data,
+          });
+  
+          // toast.success("Successfully logged in", { theme: "dark" });
+          navigate("/homepg");
+        })
+      });
+    } catch (error) {
+      console.log(error);
+      // setErr(error.code);
+    }
+  };
 
   const googleAuthProvider = new GoogleAuthProvider();
 
@@ -80,7 +88,7 @@ const Login = () => {
               Log In to your Account
             </h1>
             <br />
-            <div class="flex flex-col text-center">
+            <div className="flex flex-col text-center">
               <label className="my-3 font-semibold">Email</label>
               <input
                 type="email"
