@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { DeleteNote, ShowNote } from "../axios/note.axios";
 import { Button, Input } from "@mui/material";
 import { Image } from "cloudinary-react";
+import { useSelector } from "react-redux";
 
 const Card = ({ setIsPopup, setNote }) => {
   const [notes, setNotes] = useState([]);
+  const { user } = useSelector((state) => ({ ...state }));
   const [searchTitle, setSearchTitle] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
   // const [isTruncated, setisTruncated] = useState(false)
-  
+
   // const [title, setTitle] = useState("");
 
   // const [description, setDescription] = useState("")
@@ -80,20 +82,14 @@ const Card = ({ setIsPopup, setNote }) => {
                     <p className="py-2">
                       {note.blog_description.slice(0, 100)}
                     </p>
-                    <p className="py-2">{note.blog_author}</p>
+                    <p className="py-2">{note.blog_file}</p>
                     <button
-                      onClick={() => window.open(note.blog_file)}
+                      onClick={() => window.open(note.blog_author)}
                       className="p-2 shadow-xl bg-white rounded-md"
                     >
                       View File{" "}
                     </button>
-                    <button
-                      onClick={() => window.open(note.blog_file)}
-                      className="p-2 shadow-xl bg-white rounded-md"
-                    >
-                      View File
-                    </button>
-                    <div className="flex justify-between my-3 w-full">
+                    {(user.displayName==note.blog_file || user.username==note.blog_file)&&<div className="flex justify-between my-3 w-full">
                       <div className="mr-1">
                         <Button
                           variant="contained"
@@ -114,7 +110,7 @@ const Card = ({ setIsPopup, setNote }) => {
                           Delete Note
                         </Button>
                       </div>
-                    </div>
+                    </div>}
                   </div>
                 );
               })

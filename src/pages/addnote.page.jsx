@@ -5,6 +5,7 @@ import { AddNote, UploadFile } from "../axios/note.axios";
 import Footer from "../components/footer.component";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Addnote = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Addnote = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState("");
   const [author, setAuthor] = useState("");
+  const { user } = useSelector((state) => ({ ...state }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,12 +24,15 @@ const Addnote = () => {
     toast.info("Your note is being uploaded", { theme: "dark" });
 
     await UploadFile(formData).then(async (res) => {
-      await AddNote(title, description, res.data.secure_url, author).then(
-        (res) => {
-          toast.success("Data uploaded", { theme: "dark" });
-          navigate("/homepg");
-        }
-      );
+      await AddNote(
+        title,
+        description,
+        res.data.secure_url,
+        user.displayName ? user.displayName : user.username
+      ).then((res) => {
+        toast.success("Data uploaded", { theme: "dark" });
+        navigate("/homepg");
+      });
     });
   };
 
@@ -72,7 +77,7 @@ const Addnote = () => {
             }}
           />
 
-          <TextField
+          {/* <TextField
             id="outlined-adornment-amount"
             label="Author"
             variant="filled"
@@ -80,14 +85,16 @@ const Addnote = () => {
             multiline="true"
             // required
             className="rounded-md  bg-[#F8F0E3]"
-            onChange={(e) => setAuthor(e.target.value)}
+            onChange={(e) =>
+              setAuthor(user.displayName ? user.displayName : user.username)
+            }
             sx={{
               width: "24rem",
               "@media(min-width:1024px)": { width: "55rem" },
               color: "success.main",
               margin: "1rem",
             }}
-          />
+          /> */}
           <div className="flex justify-between w-full">
             <Button
               variant="contained"

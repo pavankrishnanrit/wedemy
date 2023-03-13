@@ -15,6 +15,13 @@ const Navbar = () => {
       >
         Home
       </Link>
+      
+      <Link
+        to="/explorepg"
+        className="no-underline lg:px-10 py-5 mx-5 text-black font-semibold hover:text-[#BFACE2] transition duration-150 ease-in-out"
+      >
+        Explore
+      </Link>
 
       <Link
         to="/addnote"

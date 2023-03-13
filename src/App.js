@@ -1,20 +1,19 @@
-import Landingpage from './pages/landing.page';
-import Login from './pages/auth/login';
-import About from './pages/about.page';
+import Landingpage from "./pages/landing.page";
+import Login from "./pages/auth/login";
+import About from "./pages/about.page";
 import { Route, Routes } from "react-router-dom";
-import './App.css';
-import Signup from './pages/auth/signup';
-import Homepage from './pages/home.page';
+import "./App.css";
+import Signup from "./pages/auth/signup";
+import Homepage from "./pages/home.page";
 // import Accountpage from './pages/account.page';
-import Addnote from './pages/addnote.page';
-import { useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+import Addnote from "./pages/addnote.page";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function App() {
-  const {user} = useSelector((state) => ({...state}))
-  
+  const { user } = useSelector((state) => ({ ...state }));
+
   return (
     <>
       <ToastContainer
@@ -32,6 +31,7 @@ function App() {
         {user ? (
           <>
             <Route exact path="/homepg" element={<Homepage />} />
+            <Route exact path="/explorepg" element={<Homepage />} />
             <Route exact path="/addnote" element={<Addnote />} />
           </>
         ) : (
