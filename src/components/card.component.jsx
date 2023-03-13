@@ -8,6 +8,8 @@ const Card = ({ setIsPopup, setNote }) => {
   const [notes, setNotes] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
+  // const [isTruncated, setisTruncated] = useState(false)
+  
   // const [title, setTitle] = useState("");
 
   // const [description, setDescription] = useState("")
@@ -85,6 +87,12 @@ const Card = ({ setIsPopup, setNote }) => {
                     >
                       View File{" "}
                     </button>
+                    <button
+                      onClick={() => window.open(note.blog_file)}
+                      className="p-2 shadow-xl bg-white rounded-md"
+                    >
+                      View File
+                    </button>
                     <div className="flex justify-between my-3 w-full">
                       <div className="mr-1">
                         <Button
@@ -114,7 +122,7 @@ const Card = ({ setIsPopup, setNote }) => {
       </div>
       {notes.length === 0 && (
         <>
-          <h1 className="text-2xl text-white font-bold flex flex-col items-center justify-center h-[40vh]">
+          <h1 className="text-2xl text-black font-bold flex flex-col items-center justify-center h-[40vh]">
             Add notes to display here
           </h1>
         </>

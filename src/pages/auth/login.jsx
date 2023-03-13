@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { auth } from "../../firebase/firebase-config";
 import { getUser } from "../../axios/user.axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,20 +18,20 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
+    console.log(email);
     try {
-      await signInWithEmailAndPassword(auth, email,).then(async (res) => {
+      await signInWithEmailAndPassword(auth, email, password).then(async (res) => {
         console.log(res.user.email);
         console.log(res);
-        await getUser(res.user.email).then((res)=> {
+        await getUser(res.user.email).then((res) => {
           console.log(res);
           dispatch({
             type: "CREATE_USER",
             payload: res.data,
           });
-  
-          // toast.success("Successfully logged in", { theme: "dark" });
+
           navigate("/homepg");
-        })
+        });
       });
     } catch (error) {
       console.log(error);
@@ -48,6 +49,7 @@ const Login = () => {
           type: "CREATE_USER",
           payload: res.user.providerData[0],
         });
+        toast.success("Successfully logged in", { theme: "dark" });
         navigate("/homepg");
         console.log(res);
       });

@@ -8,6 +8,7 @@ import { auth } from "../../firebase/firebase-config";
 import { useDispatch } from "react-redux";
 import { createUser } from "../../axios/user.axios";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -44,6 +45,7 @@ const Signup = () => {
           type: "CREATE_USER",
           payload: res.user.providerData[0],
         });
+        toast.success("Successfully logged in", { theme: "dark" });
         navigate("/homepg");
         console.log(res);
       });
