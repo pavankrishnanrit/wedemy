@@ -89,28 +89,31 @@ const Card = ({ setIsPopup, setNote }) => {
                     >
                       View File{" "}
                     </button>
-                    {(user.displayName==note.blog_file || user.username==note.blog_file)&&<div className="flex justify-between my-3 w-full">
-                      <div className="mr-1">
-                        <Button
-                          variant="contained"
-                          // className="p-2 m-3 shadow-xl bg-white rounded-md"
-                          // type=""
-                          onClick={() => handlePopup(note)}
-                        >
-                          Edit Note
-                        </Button>
+                    {(user.displayName == note.blog_file ||
+                      user.username == note.blog_file) && (
+                      <div className="flex justify-between my-3 w-full">
+                        <div className="mr-1">
+                          <Button
+                            variant="contained"
+                            // className="p-2 m-3 shadow-xl bg-white rounded-md"
+                            // type=""
+                            onClick={() => handlePopup(note)}
+                          >
+                            Edit Note
+                          </Button>
+                        </div>
+                        <div className="ml-1">
+                          <Button
+                            variant="contained"
+                            // type=""
+                            onClick={() => Deletenote(note.blog_id)}
+                            // className="p-2 shadow-xl bg-white rounded-md"
+                          >
+                            Delete Note
+                          </Button>
+                        </div>
                       </div>
-                      <div className="ml-1">
-                        <Button
-                          variant="contained"
-                          // type=""
-                          onClick={() => Deletenote(note.blog_id)}
-                          // className="p-2 shadow-xl bg-white rounded-md"
-                        >
-                          Delete Note
-                        </Button>
-                      </div>
-                    </div>}
+                    )}
                   </div>
                 );
               })
